@@ -1,0 +1,90 @@
+@RestController
+@RequestMapping("/document")
+public class DocumentReferenceController {
+
+    private final DocumentReferenceService documentReferenceService;
+
+    @Autowired
+    public DocumentReferenceController(DocumentReferenceService documentReferenceService) {
+        this.documentReferenceService = documentReferenceService;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<DocumentReference> createDocumentReference(
+            @RequestParam("ID") String ID,
+            @RequestParam("status") String status,
+            @RequestParam("docStatus") String docStatus,
+            @RequestParam("metaProfile") String metaProfile,
+            @RequestParam("metaSystem") String metaSystem,
+            @RequestParam("metaCode") String metaCode,
+            @RequestParam("masterIdentifierSystem") String masterIdentifierSystem,
+            @RequestParam("masterIdentifierValue") String masterIdentifierValue,
+            @RequestParam("identifierSystem") String identifierSystem,
+            @RequestParam("identifierSystemValue") String identifierSystemValue,
+            @RequestParam("kdlSystem") String kdlSystem,
+            @RequestParam("kdlCode") String kdlCode,
+            @RequestParam("kdlDisplay") String kdlDisplay,
+            @RequestParam("padId") String padId,
+            @RequestParam("authorName") String authorName,
+            @RequestParam("securityLabelSystem") String securityLabelSystem,
+            @RequestParam("securityLabelCode") String securityLabelCode,
+            @RequestParam("securityLabelDisplay") String securityLabelDisplay,
+            @RequestParam("type") String type,
+            @RequestParam("documentReference") String documentReference,
+            @RequestParam("contentType") String contentType,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("language") String language,
+            @RequestParam("creationElement") String creationElement,
+            @RequestParam("formatSystem") String formatSystem,
+            @RequestParam("formatCode") String formatCode,
+            @RequestParam("formatDisplay") String formatDisplay,
+            @RequestParam("facilityTypeSystem") String facilityTypeSystem,
+            @RequestParam("facilityTypeCode") String facilityTypeCode,
+            @RequestParam("facilityTypeDisplay") String facilityTypeDisplay,
+            @RequestParam("practiceSettingSystem") String practiceSettingSystem,
+            @RequestParam("practiceSettingCode") String practiceSettingCode,
+            @RequestParam("practiceSettingDisplay") String practiceSettingDisplay,
+            @RequestParam("fallnummer") String fallnummer) {
+        try {
+            DocumentReference documentReferenceObj = documentReferenceService.createDocumentReference(
+                    ID,
+                    Enumerations.DocumentReferenceStatus.valueOf(status),
+                    DocumentReference.ReferredDocumentStatus.valueOf(docStatus),
+                    metaProfile,
+                    metaSystem,
+                    metaCode,
+                    masterIdentifierSystem,
+                    masterIdentifierValue,
+                    identifierSystem,
+                    identifierSystemValue,
+                    kdlSystem,
+                    kdlCode,
+                    kdlDisplay,
+                    padId,
+                    authorName,
+                    securityLabelSystem,
+                    securityLabelCode,
+                    securityLabelDisplay,
+                    DocumentReference.DocumentRelationshipType.valueOf(type),
+                    documentReference,
+                    contentType,
+                    file,
+                    language,
+                    creationElement,
+                    formatSystem,
+                    formatCode,
+                    formatDisplay,
+                    facilityTypeSystem,
+                    facilityTypeCode,
+                    facilityTypeDisplay,
+                    practiceSettingSystem,
+                    practiceSettingCode,
+                    practiceSettingDisplay,
+                    fallnummer
+            );
+            return ResponseEntity.ok(documentReferenceObj);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+}

@@ -1,0 +1,7 @@
+baseUrl=http://isik-server.XXXXX.de
+endPointISiK=/XXX/fhir/r4/XXXXX
+endPointLogin=/v1/user/XXXX
+username=XXXX
+pwd=XXXXX
+port=:888
+hash=SHA3-512

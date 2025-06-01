@@ -1,0 +1,26 @@
+stages:
+  - build
+  - frontend-build
+build-job:
+  stage: build
+  image: eclipse-temurin:21-jdk
+  before_script:
+    - apt-get update && apt-get install -y maven
+  script:
+    - echo "Compiling the backend code..."
+    - cd backend
+    - mvn clean install -DskipTests
+    - echo "Backend compile complete."
+frontend-build-job:
+  stage: frontend-build
+  image: node:20
+  before_script:
+    - cd frontend
+    - npm install --legacy-peer-deps
+  script:
+    - echo "Building the frontend..."
+    - npm run build
+    - echo "Frontend build complete."
+  artifacts:
+    paths:
+      - frontend/dist
